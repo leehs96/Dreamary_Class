@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Designer
 # Create your views here.
 def home(request):
@@ -30,3 +30,9 @@ if request.method == 'POST':
     return redirect('detail', post.id)
 else:
     return render(request, 'update.html', {'designer' : post})
+
+def delete(request, designer_id):
+    post = get_object_or_404(Designer, pk = designer_id)
+    post.delete()
+
+    return redirect('home')
